@@ -6,9 +6,12 @@ public class Enemy : MonoBehaviour
 	// ヒットポイント
 	public int hp = 1;
 
+	// スコアのポイント
+	public int point = 100;
+
 	// Spaceshipコンポーネント
 	Spaceship spaceship;
-	
+
 	IEnumerator Start ()
 	{
 		
@@ -42,7 +45,7 @@ public class Enemy : MonoBehaviour
 	// 機体の移動
 	public void Move (Vector2 direction)
 	{
-		rigidbody2D.velocity = direction * spaceship.speed;
+		GetComponent<Rigidbody2D>().velocity = direction * spaceship.speed;
 	}
 
 	void OnTriggerEnter2D (Collider2D c)
@@ -68,6 +71,9 @@ public class Enemy : MonoBehaviour
 		// ヒットポイントが0以下であれば
 		if(hp <= 0 )
 		{
+			// スコアコンポーネントを取得してポイントを追加
+			FindObjectOfType<Score>().AddPoint(point);
+
 			// 爆発
 			spaceship.Explosion ();
 			
@@ -75,7 +81,7 @@ public class Enemy : MonoBehaviour
 			Destroy (gameObject);
 
 		}else{
-
+			// Damageトリガーをセット
 			spaceship.GetAnimator().SetTrigger("Damage");
 		
 		}

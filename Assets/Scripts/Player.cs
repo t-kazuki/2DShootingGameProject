@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 			spaceship.Shot (transform);
 			
 			// ショット音を鳴らす
-			audio.Play();
+			GetComponent<AudioSource>().Play();
 			
 			// shotDelay秒待つ
 			yield return new WaitForSeconds (spaceship.shotDelay);
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 		{
 			// Managerコンポーネントをシーン内から探して取得し、GameOverメソッドを呼び出す
 			FindObjectOfType<Manager>().GameOver();
-			
+
 			// 爆発する
 			spaceship.Explosion();
 		
